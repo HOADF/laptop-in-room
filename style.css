@@ -10,91 +10,106 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #1a1a1a;
+    background-color: #141414;
+    perspective: 1000px; /* Включаем 3D-пространство для всей комнаты */
 }
 
 /* Комната и обои на стене */
 .room-wall {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #3a4750 25%, transparent 25%) -50px 0,
-                linear-gradient(225deg, #3a4750 25%, transparent 25%) -50px 0,
-                linear-gradient(45deg, #3a4750 25%, transparent 25%),
-                linear-gradient(35deg, #3a4750 25%, #303841 25%);
+    background: linear-gradient(135deg, #2c3539 25%, transparent 25%) -50px 0,
+                linear-gradient(225deg, #2c3539 25%, transparent 25%) -50px 0,
+                linear-gradient(45deg, #2c3539 25%, transparent 25%),
+                linear-gradient(35deg, #2c3539 25%, #222831 25%);
     background-size: 100px 100px;
     display: flex;
-    align-items: flex-end; /* Стол теперь жестко стоит на полу/нижнем крае */
+    align-items: flex-end; 
     justify-content: center;
 }
 
-/* Деревянный стол — теперь идет до конца экрана */
+/* Деревянный стол с наклоном (эффект взгляда сидящего человека) */
 .desk {
     width: 100vw; 
-    height: 25vh; /* Оптимальная высота, чтобы оставалось много места под экран */
-    background: linear-gradient(to bottom, #8a5229, #6e401f);
-    border-top: 15px solid #a66332;
+    height: 280px; 
+    background: linear-gradient(to bottom, #7a431d, #5c3214);
+    border-top: 15px solid #965324;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    box-shadow: 0 -20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.7);
+    transform: rotateX(12deg); /* Наклон стола на пользователя */
+    transform-origin: bottom center;
 }
 
 /* Предметы на столе */
 .desk-items {
     position: absolute;
     width: 100%;
-    height: 60px;
-    top: -45px;
+    height: 1px;
+    top: -15px;
     left: 0;
 }
 
-/* Книги стопкой */
+/* Книги убрали, вместо них делаем реалистичный стакан с ручками слева */
 .books {
     position: absolute;
-    left: 5%;
-    bottom: -15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.book-1, .book-2 {
-    width: 160px;
-    height: 30px;
-    background-color: #952323;
+    left: 12%;
+    bottom: -10px;
+    width: 60px;
+    height: 85px;
+    background: linear-gradient(to right, #333, #444, #222);
     border-radius: 4px;
-    border-bottom: 4px solid #bd3a3a;
-    margin-bottom: -2px;
+    border: 1px solid #555;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
 }
-.book-2 {
-    width: 150px;
-    height: 28px;
-    background-color: #2a52be;
-    border-bottom: 4px solid #4169e1;
+/* Органайзер: наполняем стакан ручками */
+.books::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    width: 8px;
+    height: 70px;
+    background: #0078d7; /* Синяя ручка */
+    border-radius: 2px;
+    transform: rotate(-10deg);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+.books::after {
+    content: '';
+    position: absolute;
+    top: -35px;
+    right: 15px;
+    width: 6px;
+    height: 75px;
+    background: #e81123; /* Красный карандаш */
+    border-radius: 1px;
+    transform: rotate(15deg);
+    box-shadow: -3px 3px 5px rgba(0,0,0,0.3);
 }
 
 /* Детализированная компьютерная мышка справа */
 .mouse {
     position: absolute;
-    right: 8%;
-    bottom: -35px;
-    width: 55px;
-    height: 90px;
-    background: linear-gradient(to bottom, #2d2d2d, #1e1e1e);
-    border-radius: 28px 28px 24px 24px;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 8px 20px rgba(0,0,0,0.5);
-    cursor: pointer;
-    pointer-events: auto;
+    right: 12%;
+    bottom: -20px;
+    width: 52px;
+    height: 85px;
+    background: linear-gradient(to bottom, #2b2b2b, #1c1c1c);
+    border-radius: 26px 26px 22px 22px;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.6);
 }
 
-/* Разделение кнопок (левая/правая) и колесико */
+/* Разделение кнопок мыши */
 .mouse::before {
     content: '';
     position: absolute;
     top: 0;
     left: 50%;
     width: 1px;
-    height: 40px; /* Линия разреза кнопок */
+    height: 38px;
     background-color: #111;
 }
 
@@ -102,51 +117,53 @@ body, html {
 .mouse::after {
     content: '';
     position: absolute;
-    top: 15px;
+    top: 12px;
     left: calc(50% - 3px);
     width: 6px;
     height: 14px;
-    background-color: #555;
+    background-color: #444;
     border-radius: 3px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
 }
 
-/* Мигающий лазер снизу мышки */
+/* Деликатное мягкое мигание красным прямо на колесике (скроле) */
 .mouse-laser {
     position: absolute;
-    bottom: 8px;
-    left: calc(50% - 4px);
-    width: 8px;
+    top: 15px;
+    left: calc(50% - 2px);
+    width: 4px;
     height: 8px;
-    background-color: red;
+    background-color: #ff3b30;
     border-radius: 50%;
-    box-shadow: 0 0 15px 4px red;
-    animation: pulse-red 1.2s infinite;
+    filter: blur(1px);
+    animation: smooth-glow 2.5s infinite ease-in-out;
+    z-index: 2;
 }
-@keyframes pulse-red {
-    0%, 100% { opacity: 0.4; transform: scale(0.9); box-shadow: 0 0 10px 2px red; }
-    50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 20px 6px red; }
+@keyframes smooth-glow {
+    0%, 100% { opacity: 0.1; box-shadow: 0 0 2px rgba(255, 0, 0, 0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 8px rgba(255, 0, 0, 0.9); }
 }
 
-/* --- ОГРОМНЫЙ НОУТБУК ПО ЦЕНТРУ --- */
+/* --- ПРОПОРЦИОНАЛЬНЫЙ ФИКСИРОВАННЫЙ НОУТБУК ПО ЦЕНТРУ --- */
 .laptop {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 85vw; /* Занимает 85% всей ширины экрана */
-    max-width: 1600px;
-    margin-top: -68vh; /* Выталкивает экран высоко вверх, занимая всё пространство */
+    /* Фиксированные размеры сохраняют строгую прямоугольную форму */
+    width: 780px; 
+    margin-top: -390px; /* Идеальное положение по центру высоты */
     z-index: 10;
+    transform: rotateX(-4deg); /* Слегка компенсируем наклон стола для экрана */
 }
 
 /* Экран ноутбука */
 .laptop-screen {
     width: 100%;
-    height: 62vh; /* Максимально возможная высота экрана */
-    background-color: #0a0a0a;
-    border: 18px solid #252525; /* Прочная рамка */
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    height: 440px; /* Пропорция ~16:10, не растягивается */
+    background-color: #0d0d0d;
+    border: 16px solid #222222; 
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.8);
     overflow: hidden;
     position: relative;
 }
@@ -164,37 +181,36 @@ body, html {
 
 /* Окно операционной системы */
 .os-window {
-    width: 97%;
-    height: 85%;
-    background-color: rgba(255, 255, 255, 0.97);
-    margin: 15px auto 0;
-    border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 96%;
+    height: 84%;
+    background-color: rgba(255, 255, 255, 0.98);
+    margin: 12px auto 0;
+    border-radius: 5px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 .window-header {
     background-color: #f3f3f3;
-    padding: 10px 15px;
+    padding: 8px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
+    font-size: 12px;
     border-bottom: 1px solid #dcdcdc;
     color: #333;
 }
 .window-controls span {
-    margin-left: 12px;
+    margin-left: 10px;
     cursor: pointer;
     color: #888;
-    font-weight: bold;
 }
 .window-body {
-    padding: 25px;
+    padding: 22px;
     overflow-y: auto;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.5;
     color: #222;
     flex-grow: 1;
 }
@@ -202,8 +218,8 @@ body, html {
 /* Панель задач Windows 10 */
 .taskbar {
     width: 100%;
-    height: 40px;
-    background-color: rgba(16, 16, 16, 0.92);
+    height: 38px;
+    background-color: rgba(16, 16, 16, 0.93);
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
@@ -213,7 +229,7 @@ body, html {
 
 /* Кнопка Пуск */
 .start-btn {
-    width: 46px;
+    width: 44px;
     height: 100%;
     background: transparent;
     border: none;
@@ -226,15 +242,15 @@ body, html {
     background-color: rgba(255,255,255,0.1);
 }
 .start-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Поиск Win10 */
 .search-box {
     height: 100%;
-    width: 160px;
-    background-color: rgba(255,255,255,0.15);
+    width: 150px;
+    background-color: rgba(255,255,255,0.14);
     display: flex;
     align-items: center;
     padding: 0 12px;
@@ -244,7 +260,7 @@ body, html {
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     outline: none;
 }
 
@@ -257,8 +273,8 @@ body, html {
     background: transparent;
     border: none;
     color: #e0e0e0;
-    padding: 0 18px;
-    font-size: 13px;
+    padding: 0 16px;
+    font-size: 12px;
     cursor: pointer;
     height: 100%;
     transition: all 0.2s;
@@ -276,28 +292,28 @@ body, html {
 /* Всплывающее меню Пуск */
 .start-menu {
     position: absolute;
-    bottom: 40px;
+    bottom: 38px;
     left: 0;
-    width: 220px;
-    background-color: rgba(20, 20, 20, 0.97);
+    width: 210px;
+    background-color: rgba(20, 20, 20, 0.96);
     border-top: 1px solid #444;
     border-right: 1px solid #444;
     display: none;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 12px 0;
     box-shadow: 5px -5px 25px rgba(0,0,0,0.7);
     z-index: 30;
 }
 .start-menu h3 {
     color: #888;
     font-size: 11px;
-    padding: 0 15px 8px;
+    padding: 0 15px 6px;
     text-transform: uppercase;
 }
 .start-menu li {
     color: #fff;
-    padding: 12px 15px;
-    font-size: 14px;
+    padding: 10px 15px;
+    font-size: 13px;
     cursor: pointer;
 }
 .start-menu li:hover {
@@ -306,20 +322,23 @@ body, html {
 
 /* Подставка ноутбука (Клавиатурный блок) */
 .laptop-base {
-    width: 106%; /* Идеальная пропорция относительно огромного экрана */
-    height: 24px;
-    background: linear-gradient(to bottom, #3a3a3a, #1a1a1a);
+    width: 840px; /* Чуть шире экрана для создания правильного объема */
+    height: 26px;
+    background: linear-gradient(to bottom, #333333, #161616);
     border-radius: 0 0 20px 20px;
     position: relative;
-    box-shadow: 0 15px 25px rgba(0,0,0,0.6);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    
+    /* Текстура разделения клавиатурного блока и топкейса */
+    border-top: 2px solid #444; 
 }
 
 /* Тачпад */
 .touchpad {
-    width: 130px;
-    height: 12px;
-    background-color: #2b2b2b;
+    width: 140px;
+    height: 14px;
+    background-color: #262626;
     margin: 0 auto;
     border-radius: 3px 3px 0 0;
-    border: 1px solid #1f1f1f;
+    border: 1px solid #1a1a1a;
 }
