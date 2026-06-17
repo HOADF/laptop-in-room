@@ -23,24 +23,24 @@ body, html {
                 linear-gradient(35deg, #3a4750 25%, #303841 25%);
     background-size: 100px 100px;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center; /* Центрируем всё вертикально */
+    justify-content: center; /* Центрируем всё горизонтально */
+    padding-top: 5vh; /* Немного приподнимаем общую композицию */
 }
 
 /* Деревянный стол */
 .desk {
-    width: 90%;
-    max-width: 1000px;
-    height: 320px;
+    width: 95vw; /* Стол почти во всю ширину экрана */
+    max-width: 1400px;
+    height: 45vh; /* Увеличили высоту стола относительно экрана */
     background: linear-gradient(to bottom, #8a5229, #6e401f);
-    border-top: 12px solid #a66332;
-    border-radius: 8px 8px 0 0;
+    border-top: 15px solid #a66332;
+    border-radius: 12px 12px 0 0;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 20px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.6);
 }
 
 /* Предметы на столе */
@@ -48,79 +48,83 @@ body, html {
     position: absolute;
     width: 100%;
     height: 60px;
-    top: -45px;
+    top: -55px; /* Корректируем положение предметов под новый стол */
     left: 0;
     pointer-events: none;
 }
 
-/* Книги */
+/* Книги (лежат стопкой, как на картинке) */
 .books {
     position: absolute;
-    left: 10%;
-    bottom: -10px;
+    left: 15%;
+    bottom: -15px;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column; /* Книги теперь лежат друг на друге */
+    align-items: center;
 }
 .book-1, .book-2 {
-    width: 25px;
-    height: 80px;
+    width: 160px;
+    height: 30px;
     background-color: #952323;
-    border-radius: 3px;
-    margin-right: 5px;
-    transform: rotate(-5deg);
-    border-left: 5px solid #bd3a3a;
+    border-radius: 4px;
+    border-bottom: 4px solid #bd3a3a;
+    margin-bottom: -2px;
 }
 .book-2 {
-    height: 90px;
+    width: 150px;
+    height: 28px;
     background-color: #2a52be;
-    border-left: 5px solid #4169e1;
-    transform: rotate(0deg);
+    border-bottom: 4px solid #4169e1;
 }
 
 /* Мышка с мигающим лазером */
 .mouse {
     position: absolute;
-    right: 12%;
-    bottom: -15px;
-    width: 35px;
-    height: 55px;
+    right: 18%;
+    bottom: -25px;
+    width: 50px;
+    height: 80px;
     background-color: #222;
-    border-radius: 18px 18px 15px 15px;
-    box-shadow: inset 0 2px 5px rgba(255,255,255,0.2);
+    border-radius: 25px 25px 20px 20px;
+    box-shadow: inset 0 3px 7px rgba(255,255,255,0.2), 0 5px 15px rgba(0,0,0,0.3);
 }
 .mouse-laser {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 5px;
-    height: 5px;
+    bottom: 5px; /* Перенесли лазер назад/вниз мышки, чтобы он подсвечивал стол */
+    left: 22px;
+    width: 6px;
+    height: 6px;
     background-color: red;
     border-radius: 50%;
-    box-shadow: 0 0 8px red;
-    animation: pulse-red 2s infinite;
+    box-shadow: 0 0 12px red;
+    animation: pulse-red 1.5s infinite;
 }
 @keyframes pulse-red {
-    0%, 100% { opacity: 0.2; box-shadow: 0 0 2px red; }
-    50% { opacity: 1; box-shadow: 0 0 10px red; }
+    0%, 100% { opacity: 0.3; box-shadow: 0 0 4px red; }
+    50% { opacity: 1; box-shadow: 0 0 15px red; }
 }
 
-/* --- НОУТБУК --- */
+/* --- НОУТБУК (Главный акцент) --- */
 .laptop {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 480px;
+    width: 60vw; /* Ноутбук теперь зависит от ширины экрана */
+    max-width: 850px;
+    min-width: 450px;
+    margin-top: -30vh; /* Сильно выталкиваем ноутбук вверх над столом */
     z-index: 10;
 }
 
 /* Экран ноутбука */
 .laptop-screen {
     width: 100%;
-    height: 290px;
+    height: 45vh; /* Высота экрана теперь тоже адаптивная */
+    min-height: 320px;
     background-color: #0a0a0a;
-    border: 14px solid #2d2d2d;
-    border-radius: 12px 12px 0 0;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    border: 16px solid #2d2d2d;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.7);
     overflow: hidden;
     position: relative;
 }
@@ -129,45 +133,45 @@ body, html {
 .screen-content {
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600') center/cover;
+    background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000') center/cover;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* Окно с контентом сайта */
+/* Окно с контентом сайта внутри монитора */
 .os-window {
-    width: 90%;
-    height: 75%;
-    background-color: rgba(255, 255, 255, 0.95);
-    margin: 10px auto 0;
-    border-radius: 4px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 95%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.96);
+    margin: 12px auto 0;
+    border-radius: 6px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 .window-header {
     background-color: #f3f3f3;
-    padding: 6px 10px;
+    padding: 8px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11px;
+    font-size: 12px;
     border-bottom: 1px solid #dcdcdc;
     color: #333;
 }
 .window-controls span {
-    margin-left: 8px;
+    margin-left: 10px;
     cursor: pointer;
     color: #888;
 }
 .window-body {
-    padding: 15px;
+    padding: 20px;
     overflow-y: auto;
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.5;
     color: #222;
     flex-grow: 1;
 }
@@ -175,9 +179,9 @@ body, html {
 /* Панель задач Windows 10 */
 .taskbar {
     width: 100%;
-    height: 32px;
-    background-color: rgba(16, 16, 16, 0.85);
-    backdrop-filter: blur(5px);
+    height: 36px;
+    background-color: rgba(16, 16, 16, 0.9);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     padding: 0;
@@ -186,7 +190,7 @@ body, html {
 
 /* Кнопка Пуск */
 .start-btn {
-    width: 36px;
+    width: 42px;
     height: 100%;
     background: transparent;
     border: none;
@@ -200,18 +204,18 @@ body, html {
     background-color: rgba(255,255,255,0.1);
 }
 .start-btn svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Поиск Win10 */
 .search-box {
     height: 100%;
-    width: 120px;
+    width: 140px;
     background-color: rgba(255,255,255,0.15);
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 10px;
     border-right: 1px solid rgba(255,255,255,0.05);
 }
 .search-box input {
@@ -219,14 +223,11 @@ body, html {
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     outline: none;
 }
 .search-box input::placeholder {
     color: #ccc;
-}
-.search-box:hover {
-    background-color: rgba(255,255,255,0.2);
 }
 
 /* Меню сайта на панели задач */
@@ -238,8 +239,8 @@ body, html {
     background: transparent;
     border: none;
     color: #e0e0e0;
-    padding: 0 12px;
-    font-size: 11px;
+    padding: 0 15px;
+    font-size: 12px;
     cursor: pointer;
     height: 100%;
     transition: all 0.2s;
@@ -257,22 +258,22 @@ body, html {
 /* Меню Пуск */
 .start-menu {
     position: absolute;
-    bottom: 32px;
+    bottom: 36px;
     left: 0;
-    width: 180px;
+    width: 200px;
     background-color: rgba(20, 20, 20, 0.95);
     border-top: 1px solid #444;
     border-right: 1px solid #444;
     display: none;
     flex-direction: column;
-    padding: 10px 0;
-    box-shadow: 5px -5px 15px rgba(0,0,0,0.5);
+    padding: 12px 0;
+    box-shadow: 5px -5px 20px rgba(0,0,0,0.6);
     z-index: 30;
 }
 .start-menu h3 {
     color: #888;
-    font-size: 10px;
-    padding: 0 15px 5px;
+    font-size: 11px;
+    padding: 0 15px 6px;
     text-transform: uppercase;
 }
 .start-menu ul {
@@ -280,8 +281,8 @@ body, html {
 }
 .start-menu li {
     color: #fff;
-    padding: 8px 15px;
-    font-size: 12px;
+    padding: 10px 15px;
+    font-size: 13px;
     cursor: pointer;
 }
 .start-menu li:hover {
@@ -290,16 +291,16 @@ body, html {
 
 /* Подставка (основание) ноутбука */
 .laptop-base {
-    width: 540px;
-    height: 16px;
+    width: 112%; /* Основание чуть шире экрана для реалистичности перспективы */
+    height: 20px;
     background: linear-gradient(to bottom, #404040, #262626);
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 16px 16px;
     position: relative;
-    box-shadow: 0 8px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.5);
 }
 .touchpad {
-    width: 80px;
-    height: 8px;
+    width: 100px;
+    height: 10px;
     background-color: #333;
     margin: 0 auto;
     border-radius: 2px 2px 0 0;
