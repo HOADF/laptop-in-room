@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Интерактивный Ноутбук</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="room-wall">
+        
+        <div class="desk">
+            
+            <div class="desk-items">
+                <div class="books">
+                    <span class="book-1"></span>
+                    <span class="book-2"></span>
+                </div>
+                <div class="mouse" id="desk-mouse">
+                    <div class="mouse-wire"></div>
+                    <div class="mouse-laser"></div>
+                </div>
+            </div>
+
+            <div class="laptop">
+                <div class="laptop-screen">
+                    <div class="screen-content">
+                        
+                        <div class="os-window" id="app-window">
+                            <header class="window-header">
+                                <span class="window-title">О компании</span>
+                                <div class="window-controls">
+                                    <span>_</span><span>[]</span><span>X</span>
+                                </div>
+                            </header>
+                            <main class="window-body" id="page-content">
+                                <h2>Добро пожаловать в нашу компанию!</h2>
+                                <p>Мы создаем инновационные решения и ценим нестандартный подход к деталям. Наш сайт — это наш цифровой офис.</p>
+                            </main>
+                        </div>
+
+                        <div class="taskbar">
+                            <button class="start-btn" id="start-button">
+                                <svg viewBox="0 0 24 24"><path d="M0 0h11v11H0zM12 0h12v11H12zM0 12h11v12H0zM12 12h12v12H12z" fill="#fff"/></svg>
+                            </button>
+                            
+                            <div class="search-box">
+                                <input type="text" id="win-search" placeholder="Поиск по сайту...">
+                            </div>
+
+                            <nav class="taskbar-nav">
+                                <button class="nav-item" data-page="about">О нас</button>
+                                <button class="nav-item" data-page="services">Услуги</button>
+                                <button class="nav-item" data-page="contacts">Контакты</button>
+                            </nav>
+                        </div>
+
+                        <div class="start-menu" id="start-menu">
+                            <h3>Главное меню</h3>
+                            <ul>
+                                <li data-page="about">О компании</li>
+                                <li data-page="services">Наши услуги</li>
+                                <li data-page="contacts">Связаться с нами</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="laptop-base">
+                    <div class="touchpad"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
