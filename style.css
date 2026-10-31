@@ -69,6 +69,8 @@ body, html {
     position: absolute;
     left: 7%;
     bottom: -95px;
+    width: 68px;
+    height: 82px;
 }
 .cup-shadow {
     position: absolute;
@@ -81,7 +83,13 @@ body, html {
     background: radial-gradient(ellipse at center, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 45%, transparent 75%);
 }
 .cup-body {
-    position: relative;
+    /* Абсолютно позиционирован поверх ручек (которые идут раньше в
+       разметке) — его непрозрачная "передняя стенка" перекрывает
+       нижнюю часть ручек, создавая эффект, что они стоят ВНУТРИ
+       стакана, а не приклеены перед ним */
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 68px;
     height: 82px;
     background: linear-gradient(110deg, #a3703f 0%, #7a4c26 35%, #5c3719 70%, #402611 100%);
