@@ -103,3 +103,38 @@ searchInput.addEventListener('input', (e) => {
 
 // Инициализация первой страницы
 navigateTo('about');
+
+// Лёгкий наклон ноутбука за курсором мыши (в духе презентаций Apple) —
+// ноутбук чуть поворачивается к курсору. Угол небольшой (до 3°), чтобы
+// не мешать читать контент и не ломать клики по интерфейсу. На тач-экранах
+// mousemove не срабатывает — ноутбук просто остаётся неподвижным, это
+// нормально (нет курсора — нечему "следить").
+const laptopEl = document.querySelector('.laptop');
+if (laptopEl) {
+    const MAX_TILT_DEG = 3;
+    let rafPending = false;
+    let lastEvent = null;
+
+    function applyTilt() {
+        rafPending = false;
+        if (!lastEvent) return;
+        const x = (lastEvent.clientX / window.innerWidth - 0.5) * 2; // -1..1
+        const y = (lastEvent.clientY / window.innerHeight - 0.5) * 2; // -1..1
+        laptopEl.style.setProperty('--tilt-x', (x * MAX_TILT_DEG).toFixed(2) + 'deg');
+        laptopEl.style.setProperty('--tilt-y', (-y * MAX_TILT_DEG).toFixed(2) + 'deg');
+    }
+
+    window.addEventListener('mousemove', (e) => {
+        lastEvent = e;
+        if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(applyTilt);
+        }
+    });
+
+    // Когда курсор уходит с окна — возвращаем ноутбук в нейтральное положение
+    window.addEventListener('mouseleave', () => {
+        laptopEl.style.setProperty('--tilt-x', '0deg');
+        laptopEl.style.setProperty('--tilt-y', '0deg');
+    });
+}
