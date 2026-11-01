@@ -151,3 +151,16 @@ caseToggleBtn.addEventListener('click', () => {
     applyCaseColor(next);
     try { localStorage.setItem(CASE_COLOR_KEY, next); } catch (e) { /* см. выше */ }
 });
+
+// --- Часы в трее ---
+// Берут время прямо из браузера посетителя (new Date() без какой-либо
+// фиксированной зоны) — поэтому всегда показывают именно его локальное
+// время, а не время сервера или произвольное значение.
+const trayClockEl = document.getElementById('tray-clock');
+
+function updateTrayClock() {
+    const now = new Date();
+    trayClockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+updateTrayClock();
+setInterval(updateTrayClock, 1000);

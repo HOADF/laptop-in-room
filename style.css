@@ -316,9 +316,22 @@ body {
     border-bottom: 3px solid var(--os-accent);
 }
 
+/* Часы в трее — время посетителя. margin-left:auto здесь (а не на
+   .theme-toggle) прижимает к правому краю всю группу "часы + кнопка
+   темы" разом. */
+.tray-clock {
+    margin-left: auto;
+    padding: 0 12px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums; /* цифры не "прыгают" при тиканье секунд */
+    color: var(--os-taskbar-fg);
+    opacity: 0.85;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 /* Кнопка смены темы ОС (светлая/тёмная) в панели задач */
 .theme-toggle {
-    margin-left: auto;
     margin-right: 10px;
     width: 26px;
     height: 26px;
@@ -482,4 +495,28 @@ body {
     background: linear-gradient(145deg, var(--case-1, #343434), var(--case-3, #161616));
     border: 1px solid rgba(255, 255, 255, 0.25);
     pointer-events: none;
+}
+
+/* На узких экранах панели задач не хватало места: поиск (150px) +
+   3 пункта меню + часы + кнопка темы не помещались, кнопка темы
+   вылезала за край. Сжимаем менее важные элементы. */
+@media (max-width: 480px) {
+    .search-box {
+        width: 34px;
+        padding: 0 8px;
+    }
+    .search-box input::placeholder {
+        opacity: 0; /* сам инпут остаётся кликабельным и рабочим, просто без подписи */
+    }
+    .nav-item {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+    .tray-clock {
+        padding: 0 6px;
+        font-size: 11px;
+    }
+    .theme-toggle {
+        margin-right: 6px;
+    }
 }

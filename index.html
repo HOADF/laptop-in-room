@@ -47,6 +47,10 @@
                             <button class="nav-item" data-page="contacts">Контакты</button>
                         </nav>
 
+                        <!-- Часы в трее — время посетителя (new Date() берёт часовой
+                             пояс и время прямо из его браузера), обновляются раз в секунду -->
+                        <div class="tray-clock" id="tray-clock"></div>
+
                         <!-- Тема содержимого экрана (светлая/тёмная) — независима от
                              цвета корпуса, который меняется кнопкой снаружи .laptop -->
                         <button class="theme-toggle" id="theme-toggle" title="Светлая/тёмная тема">🌙</button>
