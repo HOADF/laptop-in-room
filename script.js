@@ -23,17 +23,19 @@ const pages = {
 
 // Элементы DOM
 const pageContent = document.getElementById('page-content');
+const appWindow = document.getElementById('app-window');
 const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 const searchInput = document.getElementById('win-search');
 const navItems = document.querySelectorAll('.nav-item');
-const menuItems = document.querySelectorAll('.start-menu li');
+const menuItems = document.querySelectorAll('.start-menu li[data-page]');
+const desktopIcons = document.querySelectorAll('.desktop-icon[data-page]');
 
-// Переключение страниц
+// Обновляет содержимое окна, не трогая его видимость
 function navigateTo(pageKey) {
     if (pages[pageKey]) {
         pageContent.innerHTML = pages[pageKey];
-        
+
         // Обновляем активный класс на панели задач
         navItems.forEach(item => {
             if (item.getAttribute('data-page') === pageKey) {
@@ -43,22 +45,25 @@ function navigateTo(pageKey) {
             }
         });
     }
-    // Закрываем меню "Пуск" при переходе
     startMenu.style.display = 'none';
 }
 
-// Слушатели для панели задач
-navItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        navigateTo(e.target.getAttribute('data-page'));
-    });
-});
+// Открыть раздел: обновить контент И показать окно (если было
+// свёрнуто/закрыто) — так работают иконки на рабочем столе, пункты
+// меню "Пуск" и панель задач
+function openPage(pageKey) {
+    navigateTo(pageKey);
+    appWindow.style.display = 'flex';
+}
 
-// Слушатели для меню "Пуск"
+navItems.forEach(item => {
+    item.addEventListener('click', (e) => openPage(e.target.getAttribute('data-page')));
+});
 menuItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-        navigateTo(e.target.getAttribute('data-page'));
-    });
+    item.addEventListener('click', (e) => openPage(e.target.getAttribute('data-page')));
+});
+desktopIcons.forEach(icon => {
+    icon.addEventListener('click', (e) => openPage(e.currentTarget.getAttribute('data-page')));
 });
 
 // Логика кнопки "Пуск"
@@ -76,7 +81,7 @@ document.addEventListener('click', () => {
 // Поиск в стиле Windows 10
 searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
-    
+
     if (query === '') {
         navigateTo('about'); // Возврат по умолчанию
         return;
@@ -104,16 +109,33 @@ searchInput.addEventListener('input', (e) => {
 // Инициализация первой страницы
 navigateTo('about');
 
+// --- Кнопки окна (_, [], X) — теперь рабочие ---
+// Свернуть и закрыть одинаково прячут окно, открывая "рабочий стол"
+// с иконками под ним (отдельный демо-режим "закрыто" тут не нужен).
+// Развернуть — переключает окно на весь экран ноутбука и обратно.
+document.getElementById('win-minimize').addEventListener('click', (e) => {
+    e.stopPropagation();
+    appWindow.style.display = 'none';
+});
+document.getElementById('win-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    appWindow.style.display = 'none';
+});
+document.getElementById('win-maximize').addEventListener('click', (e) => {
+    e.stopPropagation();
+    appWindow.classList.toggle('maximized');
+});
+
 // --- Тема содержимого экрана (светлая/тёмная "ОС") ---
-// Независима от цвета корпуса ниже. Хранится отдельным ключом в
-// localStorage, чтобы выбор сохранялся между визитами.
+// Хранится отдельным ключом в localStorage, чтобы выбор сохранялся
+// между визитами. Независима от цвета корпуса ниже.
 const SCREEN_THEME_KEY = 'laptop-screen-theme';
 const laptopScreenEl = document.querySelector('.laptop-screen');
-const themeToggleBtn = document.getElementById('theme-toggle');
+const settingsThemeBtn = document.getElementById('settings-theme-toggle');
 
 function applyScreenTheme(theme) {
     laptopScreenEl.setAttribute('data-screen-theme', theme);
-    themeToggleBtn.textContent = theme === 'light' ? '☀️' : '🌙';
+    settingsThemeBtn.textContent = theme === 'light' ? '☀️ Светлая' : '🌙 Тёмная';
 }
 
 let savedScreenTheme = 'dark';
@@ -122,21 +144,21 @@ try {
 } catch (e) { /* localStorage недоступен (приватное окно и т.п.) — не критично для демо */ }
 applyScreenTheme(savedScreenTheme);
 
-themeToggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // не закрывать меню "Пуск" и не путать с кликом по странице
+settingsThemeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const current = laptopScreenEl.getAttribute('data-screen-theme');
     const next = current === 'light' ? 'dark' : 'light';
     applyScreenTheme(next);
     try { localStorage.setItem(SCREEN_THEME_KEY, next); } catch (e) { /* см. выше */ }
 });
 
-// --- Цвет корпуса ноутбука (снаружи) ---
-// Отдельная кнопка вне экрана, свой ключ в localStorage.
+// --- Цвет корпуса ноутбука ---
 const CASE_COLOR_KEY = 'laptop-case-color';
-const caseToggleBtn = document.getElementById('case-toggle');
+const settingsCaseBtn = document.getElementById('settings-case-toggle');
 
 function applyCaseColor(color) {
     document.documentElement.setAttribute('data-case', color);
+    settingsCaseBtn.textContent = color === 'light' ? '⚪ Светлый' : '⚫ Тёмный';
 }
 
 let savedCaseColor = 'dark';
@@ -145,11 +167,29 @@ try {
 } catch (e) { /* см. выше */ }
 applyCaseColor(savedCaseColor);
 
-caseToggleBtn.addEventListener('click', () => {
+settingsCaseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const current = document.documentElement.getAttribute('data-case');
     const next = current === 'light' ? 'dark' : 'light';
     applyCaseColor(next);
     try { localStorage.setItem(CASE_COLOR_KEY, next); } catch (e) { /* см. выше */ }
+});
+
+// --- Окно "Параметры" ---
+// Открывается с иконки рабочего стола или пункта меню "Пуск",
+// закрывается кнопкой X в заголовке.
+const settingsWindow = document.getElementById('settings-window');
+
+function openSettings(e) {
+    if (e) e.stopPropagation();
+    settingsWindow.style.display = 'flex';
+    startMenu.style.display = 'none';
+}
+document.getElementById('desktop-settings-icon').addEventListener('click', openSettings);
+document.getElementById('start-settings').addEventListener('click', openSettings);
+document.getElementById('settings-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    settingsWindow.style.display = 'none';
 });
 
 // --- Часы в трее ---
