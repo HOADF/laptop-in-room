@@ -82,16 +82,20 @@ body, html {
     border-radius: 50%;
     background: radial-gradient(ellipse at center, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 45%, transparent 75%);
 }
+/* Логика "отверстия" стакана (сверху вниз по слоям, от заднего к
+   переднему): ручки целиком (видна их верхняя, освещённая часть) →
+   полупрозрачная тень ровно в зоне устья стакана (это ТЕНЬ, через
+   неё виден приглушённый, но не чёрный цвет ручки) → и только НИЖЕ
+   устья — полностью непрозрачная стенка, которая уже скрывает ручки
+   целиком. Раньше стенка начиналась сразу от верха без какой-либо
+   видимой "глубины" — ручки выглядели обрезанными вплотную, как
+   приклеенные, а не стоящими внутри. */
 .cup-body {
-    /* Абсолютно позиционирован поверх ручек (которые идут раньше в
-       разметке) — его непрозрачная "передняя стенка" перекрывает
-       нижнюю часть ручек, создавая эффект, что они стоят ВНУТРИ
-       стакана, а не приклеены перед ним */
     position: absolute;
     left: 0;
     bottom: 0;
     width: 68px;
-    height: 82px;
+    height: 75px; /* начинается на 7px ниже верха .pencil-cup — там, где кончается устье */
     background: linear-gradient(110deg, #a3703f 0%, #7a4c26 35%, #5c3719 70%, #402611 100%);
     border-radius: 6px 6px 10px 10px;
     border: 1px solid #2e1a0a;
@@ -101,9 +105,8 @@ body, html {
         0 12px 20px rgba(0,0,0,0.6);
 }
 /* Овальный "ободок" сверху стакана — кольцо с прозрачной серединой
-   (не сплошной овал), иначе он перекрывал бы торчащие кончики ручек.
-   Видна только внешняя кромка — "губа" стакана, через середину видно
-   тёмное нутро и ручки. */
+   (не сплошной овал), иначе он перекрывал бы видимую часть ручек в
+   устье. Видна только внешняя кромка — "губа" стакана. */
 .cup-rim {
     position: absolute;
     top: -7px;
@@ -112,27 +115,29 @@ body, html {
     width: 66px;
     height: 14px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, transparent 64%, #8a5a33 74%, #3a220f 100%);
+    background: radial-gradient(ellipse at center, transparent 60%, #8a5a33 72%, #3a220f 100%);
 }
 
-/* Тёмное "нутро" стакана — видно в отверстии вокруг ручек, за счёт
-   этого верх читается как углубление, а не как плоский срез стенки */
-.cup-inner {
+/* Тень в устье стакана: полупрозрачная (НЕ чёрная заливка), лежит
+   поверх ручек ровно в зоне "глубины" отверстия — ручки под ней
+   видны приглушённым, затемнённым цветом, а не исчезают резко. */
+.cup-opening-shade {
     position: absolute;
-    top: -2px;
+    top: -7px;
     left: 50%;
     transform: translateX(-50%);
-    width: 54px;
-    height: 10px;
+    width: 60px;
+    height: 14px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, #140b05 0%, #2e1a0a 75%, transparent 100%);
+    background: radial-gradient(ellipse at center, rgba(25,14,6,0.55) 0%, rgba(25,14,6,0.4) 60%, rgba(25,14,6,0.15) 100%);
 }
 
-/* Ручки по пояс спрятаны в стакане — снаружи видны только короткие
-   кончики, растущие из отверстия, а не длинные "палки" */
+/* Ручки: верхняя часть (над устьем) видна полностью освещённой,
+   часть в устье притемняется слоем .cup-opening-shade, а ниже устья
+   их закрывает уже полностью непрозрачная .cup-body */
 .pen {
     position: absolute;
-    bottom: 30px;
+    bottom: 26px;
     width: 8px;
     border-radius: 3px 3px 1px 1px;
     transform-origin: bottom center;
@@ -140,9 +145,9 @@ body, html {
 }
 .pen-pencil {
     left: 16px;
-    height: 64px;
+    height: 83px;
     background: linear-gradient(90deg, #e6a93a, #c98a1f);
-    transform: rotate(-9deg);
+    transform: rotate(-8deg);
 }
 .pen-pencil::after {
     content: '';
@@ -157,15 +162,15 @@ body, html {
 }
 .pen-blue {
     left: 29px;
-    height: 70px;
+    height: 89px;
     background: linear-gradient(90deg, #1686e0, #0b5fab);
     transform: rotate(-1deg);
 }
 .pen-red {
     left: 42px;
-    height: 60px;
+    height: 77px;
     background: linear-gradient(90deg, #e8453c, #b82a22);
-    transform: rotate(7deg);
+    transform: rotate(6deg);
 }
 
 /* Детализированная компьютерная мышка справа, опущена ниже по столу
