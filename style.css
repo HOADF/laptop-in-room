@@ -100,31 +100,49 @@ body, html {
         inset 6px 0 10px rgba(255,214,170,0.25),
         0 12px 20px rgba(0,0,0,0.6);
 }
-/* Овальный "ободок" сверху стакана — читается как вид на цилиндр сверху */
+/* Овальный "ободок" сверху стакана — кольцо с прозрачной серединой
+   (не сплошной овал), иначе он перекрывал бы торчащие кончики ручек.
+   Видна только внешняя кромка — "губа" стакана, через середину видно
+   тёмное нутро и ручки. */
 .cup-rim {
     position: absolute;
-    top: -6px;
+    top: -7px;
     left: 50%;
     transform: translateX(-50%);
-    width: 62px;
-    height: 13px;
+    width: 66px;
+    height: 14px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #8a5a33, #3a220f);
-    border: 1px solid #2e1a0a;
+    background: radial-gradient(ellipse at center, transparent 64%, #8a5a33 74%, #3a220f 100%);
 }
+
+/* Тёмное "нутро" стакана — видно в отверстии вокруг ручек, за счёт
+   этого верх читается как углубление, а не как плоский срез стенки */
+.cup-inner {
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #140b05 0%, #2e1a0a 75%, transparent 100%);
+}
+
+/* Ручки по пояс спрятаны в стакане — снаружи видны только короткие
+   кончики, растущие из отверстия, а не длинные "палки" */
 .pen {
     position: absolute;
-    bottom: 36px;
+    bottom: 30px;
     width: 8px;
     border-radius: 3px 3px 1px 1px;
     transform-origin: bottom center;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
 .pen-pencil {
-    left: 15px;
-    height: 76px;
+    left: 16px;
+    height: 64px;
     background: linear-gradient(90deg, #e6a93a, #c98a1f);
-    transform: rotate(-14deg);
+    transform: rotate(-9deg);
 }
 .pen-pencil::after {
     content: '';
@@ -139,15 +157,15 @@ body, html {
 }
 .pen-blue {
     left: 29px;
-    height: 84px;
+    height: 70px;
     background: linear-gradient(90deg, #1686e0, #0b5fab);
-    transform: rotate(-2deg);
+    transform: rotate(-1deg);
 }
 .pen-red {
-    left: 43px;
-    height: 72px;
+    left: 42px;
+    height: 60px;
     background: linear-gradient(90deg, #e8453c, #b82a22);
-    transform: rotate(11deg);
+    transform: rotate(7deg);
 }
 
 /* Детализированная компьютерная мышка справа, опущена ниже по столу
