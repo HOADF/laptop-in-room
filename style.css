@@ -60,17 +60,14 @@ body, html {
     z-index: 11;
 }
 
-/* Стакан-органайзер с ручками слева. Раньше был серым на сером фоне
-   и буквально сливался со стеной — читался как "прозрачный". Теперь
-   тёплое непрозрачное дерево/керамика — контрастирует и со стеной,
-   и со столом, плюс сплошная (не только размытая) опорная тень, и
-   предмет опущен ниже на стол, как и мышка. */
+/* Стакан с карандашами — после нескольких неудачных попыток нарисовать
+   его чисто на CSS (см. историю коммитов), заменён на настоящее фото
+   (Pexels, свободная лицензия, images/pencil-cup.jpg в репозитории). */
 .pencil-cup {
     position: absolute;
     left: 7%;
     bottom: -95px;
-    width: 68px;
-    height: 82px;
+    width: 78px;
 }
 .cup-shadow {
     position: absolute;
@@ -81,82 +78,14 @@ body, html {
     height: 18px;
     border-radius: 50%;
     background: radial-gradient(ellipse at center, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 45%, transparent 75%);
+    z-index: -1;
 }
-/* Стенка стакана — вплотную примыкает к верху .pencil-cup, БЕЗ
-   зазора (раньше здесь был зазор в 7px, из-за которого ободок
-   "парил в воздухе" над стаканом, не касаясь его). */
-.cup-body {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 68px;
-    height: 82px;
-    background: linear-gradient(110deg, #a3703f 0%, #7a4c26 35%, #5c3719 70%, #402611 100%);
-    border-radius: 6px 6px 10px 10px;
-    border: 1px solid #2e1a0a;
-    box-shadow:
-        inset -8px 0 14px rgba(0,0,0,0.5),
-        inset 6px 0 10px rgba(255,214,170,0.25),
-        0 12px 20px rgba(0,0,0,0.6);
-}
-/* Устье стакана — один овал, вплотную "приклеенный" к стенке (не
-   отдельный плавающий элемент): в центре затемнён (там, в тени,
-   видно ручки приглушённым цветом — не чёрным и не ярким), по краю
-   светлее — это сам ободок-"губа" стакана. */
-.cup-rim {
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 62px;
-    height: 13px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at center,
-        rgba(20,11,5,0.6) 0%,
-        rgba(20,11,5,0.35) 40%,
-        #8a5a33 70%,
-        #3a220f 100%);
-}
-
-/* Ручки: верхняя часть (над устьем) видна полностью освещённой,
-   часть в устье притемняется центром .cup-rim, а ниже устья их
-   закрывает уже полностью непрозрачная .cup-body */
-.pen {
-    position: absolute;
-    bottom: 26px;
-    width: 8px;
-    border-radius: 3px 3px 1px 1px;
-    transform-origin: bottom center;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-}
-.pen-pencil {
-    left: 16px;
-    height: 83px;
-    background: linear-gradient(90deg, #e6a93a, #c98a1f);
-    transform: rotate(-8deg);
-}
-.pen-pencil::after {
-    content: '';
-    position: absolute;
-    top: -9px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 9px solid #d8a35a;
-}
-.pen-blue {
-    left: 29px;
-    height: 89px;
-    background: linear-gradient(90deg, #1686e0, #0b5fab);
-    transform: rotate(-1deg);
-}
-.pen-red {
-    left: 42px;
-    height: 77px;
-    background: linear-gradient(90deg, #e8453c, #b82a22);
-    transform: rotate(6deg);
+.cup-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 14px 22px rgba(0,0,0,0.55);
 }
 
 /* Детализированная компьютерная мышка справа, опущена ниже по столу
