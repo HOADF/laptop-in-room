@@ -11,7 +11,6 @@
     <div class="stage">
         <div class="laptop">
             <div class="laptop-screen">
-                <div class="webcam-led" id="webcam-led" title="Индикатор камеры"></div>
                 <div class="screen-content">
 
                     <div class="os-window" id="app-window">
@@ -54,6 +53,9 @@
 
                 </div>
             </div>
+            <!-- Индикатор камеры — элемент на уровне .laptop (не внутри
+                 .laptop-screen), чтобы не попадать под overflow:hidden экрана -->
+            <div class="webcam-led" id="webcam-led" title="Индикатор камеры"></div>
             <!-- Передний край корпуса (под экраном) — здесь, как на настоящих
                  ноутбуках, виден ряд индикаторов, если смотреть на корпус
                  сбоку/спереди: питание и активность диска. -->
