@@ -103,3 +103,51 @@ searchInput.addEventListener('input', (e) => {
 
 // Инициализация первой страницы
 navigateTo('about');
+
+// --- Тема содержимого экрана (светлая/тёмная "ОС") ---
+// Независима от цвета корпуса ниже. Хранится отдельным ключом в
+// localStorage, чтобы выбор сохранялся между визитами.
+const SCREEN_THEME_KEY = 'laptop-screen-theme';
+const laptopScreenEl = document.querySelector('.laptop-screen');
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+function applyScreenTheme(theme) {
+    laptopScreenEl.setAttribute('data-screen-theme', theme);
+    themeToggleBtn.textContent = theme === 'light' ? '☀️' : '🌙';
+}
+
+let savedScreenTheme = 'dark';
+try {
+    savedScreenTheme = localStorage.getItem(SCREEN_THEME_KEY) || 'dark';
+} catch (e) { /* localStorage недоступен (приватное окно и т.п.) — не критично для демо */ }
+applyScreenTheme(savedScreenTheme);
+
+themeToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // не закрывать меню "Пуск" и не путать с кликом по странице
+    const current = laptopScreenEl.getAttribute('data-screen-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    applyScreenTheme(next);
+    try { localStorage.setItem(SCREEN_THEME_KEY, next); } catch (e) { /* см. выше */ }
+});
+
+// --- Цвет корпуса ноутбука (снаружи) ---
+// Отдельная кнопка вне экрана, свой ключ в localStorage.
+const CASE_COLOR_KEY = 'laptop-case-color';
+const caseToggleBtn = document.getElementById('case-toggle');
+
+function applyCaseColor(color) {
+    document.documentElement.setAttribute('data-case', color);
+}
+
+let savedCaseColor = 'dark';
+try {
+    savedCaseColor = localStorage.getItem(CASE_COLOR_KEY) || 'dark';
+} catch (e) { /* см. выше */ }
+applyCaseColor(savedCaseColor);
+
+caseToggleBtn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-case');
+    const next = current === 'light' ? 'dark' : 'light';
+    applyCaseColor(next);
+    try { localStorage.setItem(CASE_COLOR_KEY, next); } catch (e) { /* см. выше */ }
+});

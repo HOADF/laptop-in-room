@@ -8,6 +8,12 @@
 </head>
 <body>
 
+    <!-- Цвет корпуса ноутбука — кнопка снаружи .laptop, над обоями.
+         Независима от темы содержимого экрана (.theme-toggle внутри). -->
+    <button class="case-toggle" id="case-toggle" title="Цвет корпуса">
+        <span class="case-toggle__swatch"></span>
+    </button>
+
     <div class="stage">
         <div class="laptop">
             <div class="laptop-screen">
@@ -28,7 +34,7 @@
 
                     <div class="taskbar">
                         <button class="start-btn" id="start-button">
-                            <svg viewBox="0 0 24 24"><path d="M0 0h11v11H0zM12 0h12v11H12zM0 12h11v12H0zM12 12h12v12H12z" fill="#fff"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M0 0h11v11H0zM12 0h12v11H12zM0 12h11v12H0zM12 12h12v12H12z" fill="currentColor"/></svg>
                         </button>
 
                         <div class="search-box">
@@ -40,6 +46,10 @@
                             <button class="nav-item" data-page="services">Услуги</button>
                             <button class="nav-item" data-page="contacts">Контакты</button>
                         </nav>
+
+                        <!-- Тема содержимого экрана (светлая/тёмная) — независима от
+                             цвета корпуса, который меняется кнопкой снаружи .laptop -->
+                        <button class="theme-toggle" id="theme-toggle" title="Светлая/тёмная тема">🌙</button>
                     </div>
 
                     <div class="start-menu" id="start-menu">
