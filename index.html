@@ -8,79 +8,62 @@
 </head>
 <body>
 
-    <div class="room-wall">
-        
-        <div class="desk">
-            
-            <div class="desk-items">
-                <div class="pencil-cup">
-                    <div class="cup-shadow"></div>
-                    <!-- Нарисованный CSS-стакан никак не получался похожим на
-                         настоящий — заменён на фото (Pexels, свободная
-                         лицензия), скачано и положено в репозиторий. -->
-                    <img class="cup-photo" src="images/pencil-cup.jpg" alt="Стакан с карандашами">
-                </div>
-                <div class="mouse" id="desk-mouse">
-                    <div class="mouse-shadow"></div>
-                    <div class="mouse-wire"></div>
-                    <div class="mouse-laser"></div>
-                </div>
-            </div>
+    <div class="stage">
+        <div class="laptop">
+            <div class="laptop-screen">
+                <div class="webcam-led" id="webcam-led" title="Индикатор камеры"></div>
+                <div class="screen-content">
 
-            <div class="laptop">
-                <div class="laptop-screen">
-                    <div class="webcam-led" id="webcam-led" title="Индикатор камеры"></div>
-                    <div class="screen-content">
-                        
-                        <div class="os-window" id="app-window">
-                            <header class="window-header">
-                                <span class="window-title">О компании</span>
-                                <div class="window-controls">
-                                    <span>_</span><span>[]</span><span>X</span>
-                                </div>
-                            </header>
-                            <main class="window-body" id="page-content">
-                                <h2>Добро пожаловать в нашу компанию!</h2>
-                                <p>Мы создаем инновационные решения и ценим нестандартный подход к деталям. Наш сайт — это наш цифровой офис.</p>
-                            </main>
-                        </div>
-
-                        <div class="taskbar">
-                            <button class="start-btn" id="start-button">
-                                <svg viewBox="0 0 24 24"><path d="M0 0h11v11H0zM12 0h12v11H12zM0 12h11v12H0zM12 12h12v12H12z" fill="#fff"/></svg>
-                            </button>
-                            
-                            <div class="search-box">
-                                <input type="text" id="win-search" placeholder="Поиск по сайту...">
+                    <div class="os-window" id="app-window">
+                        <header class="window-header">
+                            <span class="window-title">О компании</span>
+                            <div class="window-controls">
+                                <span>_</span><span>[]</span><span>X</span>
                             </div>
+                        </header>
+                        <main class="window-body" id="page-content">
+                            <h2>Добро пожаловать в нашу компанию!</h2>
+                            <p>Мы создаем инновационные решения и ценим нестандартный подход к деталям. Наш сайт — это наш цифровой офис.</p>
+                        </main>
+                    </div>
 
-                            <nav class="taskbar-nav">
-                                <button class="nav-item" data-page="about">О нас</button>
-                                <button class="nav-item" data-page="services">Услуги</button>
-                                <button class="nav-item" data-page="contacts">Контакты</button>
-                            </nav>
+                    <div class="taskbar">
+                        <button class="start-btn" id="start-button">
+                            <svg viewBox="0 0 24 24"><path d="M0 0h11v11H0zM12 0h12v11H12zM0 12h11v12H0zM12 12h12v12H12z" fill="#fff"/></svg>
+                        </button>
+
+                        <div class="search-box">
+                            <input type="text" id="win-search" placeholder="Поиск по сайту...">
                         </div>
 
-                        <div class="start-menu" id="start-menu">
-                            <h3>Главное меню</h3>
-                            <ul>
-                                <li data-page="about">О компании</li>
-                                <li data-page="services">Наши услуги</li>
-                                <li data-page="contacts">Связаться с нами</li>
-                            </ul>
-                        </div>
+                        <nav class="taskbar-nav">
+                            <button class="nav-item" data-page="about">О нас</button>
+                            <button class="nav-item" data-page="services">Услуги</button>
+                            <button class="nav-item" data-page="contacts">Контакты</button>
+                        </nav>
+                    </div>
 
+                    <div class="start-menu" id="start-menu">
+                        <h3>Главное меню</h3>
+                        <ul>
+                            <li data-page="about">О компании</li>
+                            <li data-page="services">Наши услуги</li>
+                            <li data-page="contacts">Связаться с нами</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="laptop-base">
-                    <div class="status-leds">
-                        <span class="led led-power" title="Питание"></span>
-                        <span class="led led-activity" title="Активность диска"></span>
-                    </div>
-                    <div class="touchpad"></div>
+
                 </div>
             </div>
-
+            <!-- Передний край корпуса (под экраном) — здесь, как на настоящих
+                 ноутбуках, виден ряд индикаторов, если смотреть на корпус
+                 сбоку/спереди: питание и активность диска. -->
+            <div class="laptop-base">
+                <div class="status-leds">
+                    <span class="led led-power" title="Питание"></span>
+                    <span class="led led-activity" title="Активность диска"></span>
+                </div>
+                <div class="touchpad"></div>
+            </div>
         </div>
     </div>
 
