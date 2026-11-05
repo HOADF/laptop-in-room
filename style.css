@@ -177,7 +177,15 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* Было justify-content: space-between — держалось только пока ОБА
+       обычных (не absolute) потока-ребёнка (.os-window и .taskbar)
+       были в DOM-потоке. При сворачивании/закрытии окна JS ставит ему
+       display:none — остаётся один-единственный флекс-элемент
+       (.taskbar), а space-between с одним элементом прижимает его к
+       НАЧАЛУ контейнера, то есть наверх, перекрывая собой верхнюю
+       иконку рабочего стола. margin-top: auto на самой .taskbar (ниже)
+       всегда прижимает её к низу независимо от того, сколько ещё
+       элементов есть в потоке. */
 }
 
 /* Индикатор веб-камеры — моргает изредка (не ритмично), как будто
@@ -336,6 +344,10 @@ body {
 .taskbar {
     width: 100%;
     height: 38px;
+    flex-shrink: 0;
+    /* Всегда прижата к низу .screen-content, независимо от того,
+       открыто ли окно .os-window (см. комментарий в .screen-content) */
+    margin-top: auto;
     background-color: var(--os-taskbar-bg);
     backdrop-filter: blur(10px);
     display: flex;
