@@ -90,10 +90,11 @@ body {
        спорил с закруглением углов и камерой за внимание. */
     border: var(--bezel) solid transparent;
     border-image: linear-gradient(145deg, var(--case-1) 0%, var(--case-2) 40%, var(--case-3) 100%) 1;
-    /* Было 14px — на большом экране смотрелось как острый угол, почти
-       квадрат. Радиус теперь считается от толщины рамки, поэтому
-       скругление всегда заметно, на любом размере экрана. */
-    border-radius: calc(var(--bezel) * 1.3) calc(var(--bezel) * 1.3) 0 0;
+    /* Корпус должен выглядеть явно округлым (а не почти квадратным),
+       поэтому множитель увеличен с 1.3 до 4 — скругление верхних
+       углов рамки теперь действительно заметно и читается как
+       "круглый корпус", а не как слегка подрезанный угол. */
+    border-radius: calc(var(--bezel) * 4) calc(var(--bezel) * 4) 0 0;
     box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.06),
         0 30px 70px rgba(0, 0, 0, 0.8);
@@ -265,7 +266,9 @@ body {
     height: 84%;
     background-color: #ffffff;
     margin: 12px auto 0;
-    border-radius: 5px;
+    /* Окно внутри экрана — строго квадратное (прямые углы), как в
+       классическом Windows, в противовес округлому корпусу ноутбука. */
+    border-radius: 0;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
@@ -429,7 +432,8 @@ body {
     transform: translate(-50%, -50%);
     width: min(320px, 86%);
     background-color: var(--os-menu-bg);
-    border-radius: 8px;
+    /* Квадратные углы, как у главного окна .os-window */
+    border-radius: 0;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     display: none; /* показывается через JS (display:flex) */
     flex-direction: column;
@@ -471,7 +475,9 @@ body {
 .settings-switch {
     flex-shrink: 0;
     padding: 7px 14px;
-    border-radius: 16px;
+    /* Квадратная форма — для единообразия с остальными окнами/кнопками
+       системы (было 16px — круглая "таблетка") */
+    border-radius: 2px;
     border: 1px solid var(--os-menu-border);
     background: rgba(128, 128, 128, 0.15);
     color: var(--os-menu-fg);
@@ -525,11 +531,10 @@ body {
     height: clamp(26px, 4.2vh, 58px);
     flex: 0 0 auto;
     background: linear-gradient(to bottom, var(--case-base-1), var(--case-base-2));
-    /* Было фиксированных 14px — незаметно на почти полноэкранном
-       ноутбуке, выглядело почти квадратным углом. Радиус теперь
-       считается от той же толщины рамки (--bezel), что и верх экрана,
-       поэтому скругление снизу так же заметно, как и сверху. */
-    border-radius: 0 0 calc(var(--bezel) * 1.3) calc(var(--bezel) * 1.3);
+    /* Множитель увеличен так же, как у верхних углов рамки (см.
+       .laptop-screen) — низ корпуса скруглён так же заметно, как верх,
+       чтобы весь корпус выглядел единым округлым корпусом. */
+    border-radius: 0 0 calc(var(--bezel) * 4) calc(var(--bezel) * 4);
     position: relative;
     /* Внешняя тень снизу + внутренняя тень у самого стыка с экраном —
        даёт ощущение настоящего шва между крышкой и корпусом, а не
