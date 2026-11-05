@@ -97,7 +97,7 @@ body {
     /* Множитель 4 (предыдущая версия) выглядел неестественно — корпус
        читался как капсула, а не ноутбук. Снижен до 2: скругление всё
        ещё заметно заметнее исходных 1.3, но без перегиба. */
-    border-radius: calc(var(--bezel) * 2) calc(var(--bezel) * 2) 0 0;
+    border-radius: calc(var(--bezel) * 1.5) calc(var(--bezel) * 1.5) 0 0;
     box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.06),
         0 30px 70px rgba(0, 0, 0, 0.8);
@@ -536,7 +536,7 @@ body {
     background: linear-gradient(to bottom, var(--case-base-1), var(--case-base-2));
     /* Тот же множитель, что у верхних углов рамки (см. .laptop-screen) —
        низ корпуса скруглён так же, как верх, единым корпусом. */
-    border-radius: 0 0 calc(var(--bezel) * 2) calc(var(--bezel) * 2);
+    border-radius: 0 0 calc(var(--bezel) * 1.5) calc(var(--bezel) * 1.5);
     position: relative;
     /* Внешняя тень снизу + внутренняя тень у самого стыка с экраном —
        даёт ощущение настоящего шва между крышкой и корпусом, а не
